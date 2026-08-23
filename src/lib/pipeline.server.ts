@@ -181,11 +181,16 @@ export async function executeCollectorRun(): Promise<TriggerRunResult> {
     const lastGood = await lastHealthyRun(admin);
     const health = assessRunHealth(result, lastGood?.valid_record_count ?? null);
 
+    const rawString = JSON.stringify(raw);
+    const rawSnippet = rawString.length > 500 ? rawString.slice(0, 500) + "..." : rawString;
+    const baseError = health.reasons.length > 0 ? health.reasons.join(" · ") : "";
+    const debugError = baseError ? `${baseError}\n\n[RAW]: ${rawSnippet}` : `[RAW]: ${rawSnippet}`;
+
     const completed: Partial<ScraperRun> = {
       status: health.status,
       record_count: result.totalCount,
       valid_record_count: result.validCount,
-      error_message: health.reasons.length > 0 ? health.reasons.join(" · ") : null,
+      error_message: debugError,
       completed_at: new Date().toISOString(),
     };
 
