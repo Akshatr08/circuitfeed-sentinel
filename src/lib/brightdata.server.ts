@@ -32,18 +32,17 @@ async function triggerCollector(token: string, collectorId: string): Promise<str
     const detail = await res.text().catch(() => "");
     throw new Error(`Bright Data trigger failed (HTTP ${res.status})${detail ? `: ${detail.slice(0, 200)}` : ""}`);
   }
-  const body = (await res.json()) as any;
-  console.log("[BrightData Trigger Response Body]:", JSON.stringify(body));
-  if (!body.response_id) {
-    throw new Error("Bright Data trigger returned no response_id");
+  const body = (await res.json()) as { collection_id?: string };
+  if (!body.collection_id) {
+    throw new Error("Bright Data trigger returned no collection_id");
   }
-  return body.response_id;
+  return body.collection_id;
 }
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function pollCollectorResult(token: string, responseId: string): Promise<unknown> {
-  const url = `${BRIGHT_DATA_RESULT_URL}?response_id=${encodeURIComponent(responseId)}`;
+async function pollCollectorResult(token: string, collectionId: string): Promise<unknown> {
+  const url = `${BRIGHT_DATA_RESULT_URL}?id=${encodeURIComponent(collectionId)}`;
   const deadline = Date.now() + COLLECTOR_TIMEOUT_MS;
 
   while (Date.now() < deadline) {
@@ -79,6 +78,6 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
 
 /** Triggers the collector and resolves with the raw structured output. */
 export async function runCollector(token: string, collectorId: string): Promise<unknown> {
-  const responseId = await triggerCollector(token, collectorId);
-  return pollCollectorResult(token, responseId);
+  const collectionId = await triggerCollector(token, collectorId);
+  return pollCollectorResult(token, collectionId);
 }

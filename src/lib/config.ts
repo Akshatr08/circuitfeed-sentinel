@@ -11,7 +11,7 @@ export const COLLECTOR_SOURCE_NAME = "Unstop";
 export const COLLECTOR_SOURCE_URL = "https://unstop.com/hackathons";
 
 export const BRIGHT_DATA_TRIGGER_URL = "https://api.brightdata.com/dca/trigger";
-export const BRIGHT_DATA_RESULT_URL = "https://api.brightdata.com/dca/get_result";
+export const BRIGHT_DATA_RESULT_URL = "https://api.brightdata.com/dca/dataset";
 
 /** How long the server polls a triggered collector run before giving up. */
 export const COLLECTOR_POLL_INTERVAL_MS = 4_000;
