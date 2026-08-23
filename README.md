@@ -83,11 +83,10 @@ After external heal + rerun verification, use **Record recovery** in the UI:
 
 The pipeline state will then render the repaired thread state when appropriate.
 
-## Tools used
+## Live Deployment & Demo
+- **Live URL:** [https://YOUR-DEPLOYED-URL-HERE.vercel.app](https://YOUR-DEPLOYED-URL-HERE.vercel.app) *(Placeholder — add your deployed Vercel URL here)*
+- **Demo Video:** [https://YOUR-VIDEO-LINK-HERE.com](https://YOUR-VIDEO-LINK-HERE.com) *(Placeholder — add your demo video link here)*
 
-AI coding assistants used during development:
-- Lovable
-- GitHub Copilot
-- Codex (Antigravity)
+## Tools Used
 
-All generated code and architecture decisions were reviewed and understood before submission.
+Built with AI assistance throughout — Claude for planning, architecture decisions, and technical guidance; Lovable for initial scaffolding; GitHub Copilot and Antigravity for implementation and debugging. All generated code and architecture were reviewed and are understood by the developer.
