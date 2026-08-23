@@ -48,7 +48,7 @@ function buildUserPrompt(question: string, records: Hackathon[]): string {
 
 async function askDirectGemini(apiKey: string, question: string, records: Hackathon[]): Promise<string> {
   const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${encodeURIComponent(apiKey)}`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
