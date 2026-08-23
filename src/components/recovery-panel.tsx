@@ -13,7 +13,9 @@ interface RecoveryPanelProps {
 
 export function RecoveryPanel({ pipeline, onRecoverySaved }: RecoveryPanelProps) {
   const [recordsBefore, setRecordsBefore] = useState(
-    String(pipeline.activeFailure?.valid_record_count ?? pipeline.latestRun?.valid_record_count ?? 0),
+    String(
+      pipeline.activeFailure?.valid_record_count ?? pipeline.latestRun?.valid_record_count ?? 0,
+    ),
   );
   const [recordsAfter, setRecordsAfter] = useState(String(pipeline.hackathonCount));
   const [explanation, setExplanation] = useState("");
@@ -42,22 +44,37 @@ export function RecoveryPanel({ pipeline, onRecoverySaved }: RecoveryPanelProps)
     <section className="rounded-xl border border-line bg-card/70 p-5">
       <h2 className="font-display text-xl text-foreground">Recovery Panel</h2>
       <p className="mt-1 text-sm text-muted-foreground">
-        Healing is done via Bright Data CLI outside this app. Log the verified before/after counts here.
+        Healing is done via Bright Data CLI outside this app. Log the verified before/after counts
+        here.
       </p>
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <label className="text-sm">
-          <span className="mb-1 block text-xs uppercase tracking-[0.16em] text-muted-foreground">Records before</span>
-          <Input value={recordsBefore} onChange={(event) => setRecordsBefore(event.target.value)} inputMode="numeric" />
+          <span className="mb-1 block text-xs uppercase tracking-[0.16em] text-muted-foreground">
+            Records before
+          </span>
+          <Input
+            value={recordsBefore}
+            onChange={(event) => setRecordsBefore(event.target.value)}
+            inputMode="numeric"
+          />
         </label>
         <label className="text-sm">
-          <span className="mb-1 block text-xs uppercase tracking-[0.16em] text-muted-foreground">Records after</span>
-          <Input value={recordsAfter} onChange={(event) => setRecordsAfter(event.target.value)} inputMode="numeric" />
+          <span className="mb-1 block text-xs uppercase tracking-[0.16em] text-muted-foreground">
+            Records after
+          </span>
+          <Input
+            value={recordsAfter}
+            onChange={(event) => setRecordsAfter(event.target.value)}
+            inputMode="numeric"
+          />
         </label>
       </div>
 
       <label className="mt-3 block text-sm">
-        <span className="mb-1 block text-xs uppercase tracking-[0.16em] text-muted-foreground">Recovery note</span>
+        <span className="mb-1 block text-xs uppercase tracking-[0.16em] text-muted-foreground">
+          Recovery note
+        </span>
         <Textarea
           value={explanation}
           onChange={(event) => setExplanation(event.target.value)}
@@ -79,7 +96,8 @@ export function RecoveryPanel({ pipeline, onRecoverySaved }: RecoveryPanelProps)
       {pipeline.latestRecovery ? (
         <div className="mt-4 rounded-md border border-line p-3 text-sm">
           <p className="text-foreground">
-            Latest recovery: {pipeline.latestRecovery.records_before} → {pipeline.latestRecovery.records_after}
+            Latest recovery: {pipeline.latestRecovery.records_before} →{" "}
+            {pipeline.latestRecovery.records_after}
           </p>
           {pipeline.latestRecovery.explanation ? (
             <p className="mt-1 text-muted-foreground">{pipeline.latestRecovery.explanation}</p>

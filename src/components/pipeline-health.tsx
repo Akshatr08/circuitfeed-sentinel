@@ -36,19 +36,31 @@ export function PipelineHealth({
 
       <div className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
         <Metric label="Collector" value={pipeline.collectorId} mono />
-        <Metric label="Status" value={conditionLabel[pipeline.condition]} danger={pipeline.condition === "drift"} />
+        <Metric
+          label="Status"
+          value={conditionLabel[pipeline.condition]}
+          danger={pipeline.condition === "drift"}
+        />
         <Metric
           label="Web integrity"
           value={pipeline.integrity === null ? "Not available yet" : `${pipeline.integrity}%`}
         />
         <Metric label="Stored records" value={`${pipeline.hackathonCount}`} />
         <Metric label="Last run records" value={`${pipeline.latestRun?.record_count ?? 0}`} />
-        <Metric label="Last valid records" value={`${pipeline.latestRun?.valid_record_count ?? 0}`} />
+        <Metric
+          label="Last valid records"
+          value={`${pipeline.latestRun?.valid_record_count ?? 0}`}
+        />
       </div>
 
       <p className="mt-3 text-sm text-muted-foreground">
         Source:{" "}
-        <a href={pipeline.sourceUrl} target="_blank" rel="noreferrer" className="text-primary underline-offset-4 hover:underline">
+        <a
+          href={pipeline.sourceUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="text-primary underline-offset-4 hover:underline"
+        >
           {pipeline.sourceName}
         </a>
       </p>
@@ -75,7 +87,9 @@ function Metric({
   return (
     <div className="rounded-md border border-line p-3">
       <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">{label}</p>
-      <p className={`mt-1 ${mono ? "font-mono text-xs break-all" : ""} ${danger ? "text-destructive" : "text-foreground"}`}>
+      <p
+        className={`mt-1 ${mono ? "font-mono text-xs break-all" : ""} ${danger ? "text-destructive" : "text-foreground"}`}
+      >
         {value}
       </p>
     </div>

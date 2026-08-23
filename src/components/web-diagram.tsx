@@ -67,7 +67,11 @@ export function WebDiagram({ condition, scrapeActive, askActive }: WebDiagramPro
               />
               {showPulse ? (
                 <circle r="4" fill="var(--thread)" className="pulse-dot">
-                  <animateMotion dur="1.4s" repeatCount="indefinite" path={`M ${x1} ${y1} L ${x2} ${y2}`} />
+                  <animateMotion
+                    dur="1.4s"
+                    repeatCount="indefinite"
+                    path={`M ${x1} ${y1} L ${x2} ${y2}`}
+                  />
                 </circle>
               ) : null}
             </g>
@@ -78,19 +82,31 @@ export function WebDiagram({ condition, scrapeActive, askActive }: WebDiagramPro
           <g key={node.id} transform={`translate(${node.x}, ${node.y})`}>
             <circle r="18" fill="var(--surface)" stroke="var(--line)" strokeWidth="1.2" />
             <circle r="5" fill="var(--thread)" className="pulse-dot" />
-            <text y="34" textAnchor="middle" className="fill-foreground font-mono text-[11px] uppercase tracking-[0.18em]">
+            <text
+              y="34"
+              textAnchor="middle"
+              className="fill-foreground font-mono text-[11px] uppercase tracking-[0.18em]"
+            >
               {node.label}
             </text>
           </g>
         ))}
 
         {isDrift ? (
-          <text x="330" y="44" className="fill-destructive font-mono text-[11px] uppercase tracking-[0.16em]">
+          <text
+            x="330"
+            y="44"
+            className="fill-destructive font-mono text-[11px] uppercase tracking-[0.16em]"
+          >
             Thread severed
           </text>
         ) : null}
         {isRepaired ? (
-          <text x="330" y="44" className="fill-primary font-mono text-[11px] uppercase tracking-[0.16em]">
+          <text
+            x="330"
+            y="44"
+            className="fill-primary font-mono text-[11px] uppercase tracking-[0.16em]"
+          >
             Thread repaired
           </text>
         ) : null}
