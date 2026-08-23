@@ -32,9 +32,7 @@ export function AskSentinel({ onAskLifecycle }: AskSentinelProps) {
   return (
     <section className="rounded-xl border border-line bg-card/70 p-5">
       <h2 className="font-display text-xl text-foreground">Ask Sentinel</h2>
-      <p className="mt-1 text-sm text-muted-foreground">
-        Ask from current validated records only.
-      </p>
+      <p className="mt-1 text-sm text-muted-foreground">Ask from current validated records only.</p>
 
       <form
         className="mt-4 flex flex-col gap-3 sm:flex-row"
@@ -51,7 +49,11 @@ export function AskSentinel({ onAskLifecycle }: AskSentinelProps) {
           placeholder="What hackathons are currently open, and which has the closest deadline?"
           className="font-sans"
         />
-        <Button type="submit" disabled={!canSubmit} className="font-mono uppercase tracking-[0.12em]">
+        <Button
+          type="submit"
+          disabled={!canSubmit}
+          className="font-mono uppercase tracking-[0.12em]"
+        >
           {mutation.isPending ? "Asking…" : "Ask"}
         </Button>
       </form>
@@ -76,9 +78,12 @@ export function AskSentinel({ onAskLifecycle }: AskSentinelProps) {
                     <li key={source.id} className="rounded-md border border-line p-3">
                       <p className="font-medium text-foreground">{source.title}</p>
                       <p className="text-muted-foreground">
-                        {source.organizer || "Organizer unavailable"} · {source.deadline_text || "Deadline unavailable"}
+                        {source.organizer || "Organizer unavailable"} ·{" "}
+                        {source.deadline_text || "Deadline unavailable"}
                       </p>
-                      {source.prize ? <p className="text-muted-foreground">Prize: {source.prize}</p> : null}
+                      {source.prize ? (
+                        <p className="text-muted-foreground">Prize: {source.prize}</p>
+                      ) : null}
                       <a
                         href={source.url}
                         target="_blank"
@@ -93,7 +98,9 @@ export function AskSentinel({ onAskLifecycle }: AskSentinelProps) {
               ) : null}
             </>
           ) : (
-            <p className="text-destructive">{result.message || "Ask Sentinel could not answer right now."}</p>
+            <p className="text-destructive">
+              {result.message || "Ask Sentinel could not answer right now."}
+            </p>
           )}
         </div>
       ) : null}

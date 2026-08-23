@@ -76,10 +76,12 @@ function Index() {
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
             CircuitFeed Sentinel
           </p>
-          <h1 className="mt-2 font-display text-4xl text-foreground">Web intelligence that fixes itself.</h1>
+          <h1 className="mt-2 font-display text-4xl text-foreground">
+            Web intelligence that fixes itself.
+          </h1>
           <p className="mt-3 text-sm text-muted-foreground">
-            Collector <span className="font-mono text-xs">{pipeline.collectorId}</span> · Web integrity:{" "}
-            {pipeline.integrity === null ? "N/A" : `${pipeline.integrity}%`}
+            Collector <span className="font-mono text-xs">{pipeline.collectorId}</span> · Web
+            integrity: {pipeline.integrity === null ? "N/A" : `${pipeline.integrity}%`}
           </p>
         </header>
 
