@@ -218,8 +218,8 @@ export async function executeCollectorRun(): Promise<TriggerRunResult> {
 export interface LogRecoveryInput {
   recordsBefore: number;
   recordsAfter: number;
-  explanation?: string;
-  failureRunId?: string;
+  explanation?: string | undefined;
+  failureRunId?: string | undefined;
 }
 
 export async function logRecovery(input: LogRecoveryInput): Promise<{ ok: true; recovery: RecoveryEvent }> {
