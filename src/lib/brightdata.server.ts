@@ -11,6 +11,7 @@ import {
   BRIGHT_DATA_TRIGGER_URL,
   COLLECTOR_POLL_INTERVAL_MS,
   COLLECTOR_TIMEOUT_MS,
+  COLLECTOR_SOURCE_URL,
 } from "./config";
 
 function authHeaders(token: string): HeadersInit {
@@ -25,7 +26,7 @@ async function triggerCollector(token: string, collectorId: string): Promise<str
   const res = await fetch(url, {
     method: "POST",
     headers: authHeaders(token),
-    body: "[]",
+    body: JSON.stringify([{ url: COLLECTOR_SOURCE_URL }]),
   });
   if (!res.ok) {
     const detail = await res.text().catch(() => "");
