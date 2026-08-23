@@ -60,7 +60,7 @@ async function pollCollectorResult(token: string, responseId: string): Promise<u
     const body: unknown = await res.json();
     if (Array.isArray(body)) return body;
 
-    const status = isPlainObject(body) && typeof body.status === "string" ? body.status : "";
+    const status = isPlainObject(body) && typeof body["status"] === "string" ? (body["status"] as string) : "";
     if (["running", "building", "starting", "queued", "ready"].includes(status)) {
       await sleep(COLLECTOR_POLL_INTERVAL_MS);
       continue;
