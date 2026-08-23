@@ -32,7 +32,8 @@ async function triggerCollector(token: string, collectorId: string): Promise<str
     const detail = await res.text().catch(() => "");
     throw new Error(`Bright Data trigger failed (HTTP ${res.status})${detail ? `: ${detail.slice(0, 200)}` : ""}`);
   }
-  const body = (await res.json()) as { response_id?: string };
+  const body = (await res.json()) as any;
+  console.log("[BrightData Trigger Response Body]:", JSON.stringify(body));
   if (!body.response_id) {
     throw new Error("Bright Data trigger returned no response_id");
   }
