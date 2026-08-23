@@ -14,7 +14,113 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      hackathons: {
+        Row: {
+          deadline_text: string | null
+          id: string
+          organizer: string | null
+          participation_mode: string | null
+          prize: string | null
+          scraped_at: string
+          title: string
+          url: string
+        }
+        Insert: {
+          deadline_text?: string | null
+          id?: string
+          organizer?: string | null
+          participation_mode?: string | null
+          prize?: string | null
+          scraped_at?: string
+          title: string
+          url: string
+        }
+        Update: {
+          deadline_text?: string | null
+          id?: string
+          organizer?: string | null
+          participation_mode?: string | null
+          prize?: string | null
+          scraped_at?: string
+          title?: string
+          url?: string
+        }
+        Relationships: []
+      }
+      recovery_events: {
+        Row: {
+          collector_id: string
+          created_at: string
+          explanation: string | null
+          failure_run_id: string | null
+          healing_status: string
+          id: string
+          records_after: number
+          records_before: number
+        }
+        Insert: {
+          collector_id: string
+          created_at?: string
+          explanation?: string | null
+          failure_run_id?: string | null
+          healing_status?: string
+          id?: string
+          records_after?: number
+          records_before?: number
+        }
+        Update: {
+          collector_id?: string
+          created_at?: string
+          explanation?: string | null
+          failure_run_id?: string | null
+          healing_status?: string
+          id?: string
+          records_after?: number
+          records_before?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recovery_events_failure_run_id_fkey"
+            columns: ["failure_run_id"]
+            isOneToOne: false
+            referencedRelation: "scraper_runs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      scraper_runs: {
+        Row: {
+          collector_id: string
+          completed_at: string | null
+          error_message: string | null
+          id: string
+          record_count: number
+          started_at: string
+          status: string
+          valid_record_count: number
+        }
+        Insert: {
+          collector_id: string
+          completed_at?: string | null
+          error_message?: string | null
+          id?: string
+          record_count?: number
+          started_at?: string
+          status: string
+          valid_record_count?: number
+        }
+        Update: {
+          collector_id?: string
+          completed_at?: string | null
+          error_message?: string | null
+          id?: string
+          record_count?: number
+          started_at?: string
+          status?: string
+          valid_record_count?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
