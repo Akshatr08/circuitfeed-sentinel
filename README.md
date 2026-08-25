@@ -96,6 +96,17 @@ What happens:
 
 If `BRIGHT_DATA_API_TOKEN` is missing, the backend returns a real error message instead of fake success.
 
+### Trigger errors
+
+- **`No input provided` (HTTP 400)** — the collector rejected the input payload.
+  The service now tries three documented DCA shapes (`/dca/trigger` with an
+  array, `/dca/trigger` with `{ input: [...] }`, and `/dca/trigger_immediate`)
+  and reports each rejection. If all three still say "No input provided", the
+  collector declares an input field with a different name: open Scraper Studio,
+  read the input field name, and set `BRIGHT_DATA_INPUT_FIELD` (and optionally
+  `BRIGHT_DATA_INPUT_URL`) in the environment.
+- **HTTP 401/403** — token missing or lacking permission for that collector.
+
 ## Healing and Recovery Logging
 
 ### Healing (outside this app)
