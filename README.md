@@ -33,10 +33,15 @@ This ID is live project configuration (see `src/lib/config.ts`) and is re-used f
 
 ## Environment Setup
 
-Create a local `.env` file with server-side secrets/config:
+Copy `.env.example` to `.env` and fill in every value:
 
 ```bash
-SUPABASE_URL=...
+# Browser-visible (publishable/anon key only)
+VITE_SUPABASE_URL=https://YOUR-PROJECT-REF.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=...
+
+# Server-side (SSR + server functions)
+SUPABASE_URL=https://YOUR-PROJECT-REF.supabase.co
 SUPABASE_PUBLISHABLE_KEY=...
 SUPABASE_SERVICE_ROLE_KEY=...
 BRIGHT_DATA_API_TOKEN=...
@@ -46,7 +51,28 @@ GEMINI_API_KEY=...
 LOVABLE_API_KEY=...
 ```
 
-> Keep secrets server-side only. Do not expose API tokens in client code.
+**The `VITE_SUPABASE_*` pair is required.** Without it the browser bundle throws
+`Missing Supabase environment variable(s)` on first render and the page shows
+nothing but an error — this is the single most common cause of a "blank/broken
+deployed site".
+
+> Keep secrets server-side only. `VITE_`-prefixed values are compiled into the
+> client bundle, so never prefix the service-role key or API tokens.
+
+## Deploying to Vercel
+
+1. Import the GitHub repo in Vercel. Framework preset: **Other** (the build is
+   driven by Vite + Nitro, which auto-detects Vercel — no config file needed).
+2. Build command `npm run build`, install command `npm install`.
+3. Add **all** of the variables above under Settings → Environment Variables for
+   both Production and Preview. Env vars are read at build time for `VITE_*`, so
+   **redeploy after adding or changing them** — editing them alone does nothing
+   to the already-built bundle.
+4. In Supabase → Authentication → URL Configuration, add the Vercel domain to
+   Site URL / Redirect URLs if you use auth.
+5. Confirm the tables `scraper_runs`, `recovery_events`, `hackathons` exist in
+   your Supabase project with RLS policies allowing anon `SELECT`, otherwise
+   reads return permission errors.
 
 ## Run Locally
 
