@@ -39,7 +39,7 @@ export function WebDiagram({ condition, scrapeActive, askActive }: WebDiagramPro
 
       <svg className="w-full" viewBox="0 0 1020 190" role="img" aria-label="Pipeline thread graph">
         {NODES.slice(0, -1).map((node, index) => {
-          const next = NODES[index + 1];
+          const next = NODES[index + 1]!;
           const x1 = node.x + 18;
           const y1 = node.y;
           const x2 = next.x - 18;
