@@ -118,9 +118,14 @@ export async function getPipelineStateData(): Promise<PipelineState> {
     hackathonCount(client),
   ]);
 
-  // A failure is "active" until a recovery is logged after it started.
+  // A newer healthy run repairs an earlier failure automatically. A manually
+  // logged recovery can also close the failure when healing happened outside.
   const activeFailure =
-    failure && (!recovery || recovery.created_at < failure.started_at) ? failure : null;
+    failure &&
+    (!lastGood?.completed_at || lastGood.completed_at < failure.started_at) &&
+    (!recovery || recovery.created_at < failure.started_at)
+      ? failure
+      : null;
 
   const condition: PipelineState["condition"] = !latest
     ? "idle"
@@ -184,7 +189,7 @@ export async function executeCollectorRun(): Promise<TriggerRunResult> {
     const rawString = JSON.stringify(raw);
     const rawSnippet = rawString.length > 500 ? rawString.slice(0, 500) + "..." : rawString;
     const baseError = health.reasons.length > 0 ? health.reasons.join(" · ") : "";
-    const debugError = baseError ? `${baseError}\n\n[RAW]: ${rawSnippet}` : `[RAW]: ${rawSnippet}`;
+    const debugError = baseError ? `${baseError}\n\n[RAW]: ${rawSnippet}` : null;
 
     const completed: Partial<ScraperRun> = {
       status: health.status,

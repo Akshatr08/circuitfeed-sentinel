@@ -37,8 +37,17 @@ function isPlainObject(value: unknown): value is RawHackathonRecord {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+function extractRecords(raw: unknown): unknown[] | null {
+  if (Array.isArray(raw)) return raw;
+  if (!isPlainObject(raw)) return null;
+
+  const wrappedRecords = raw["hackathons"];
+  return Array.isArray(wrappedRecords) ? wrappedRecords : null;
+}
+
 export function validateCollectorOutput(raw: unknown): ValidationResult {
-  if (!Array.isArray(raw)) {
+  const output = extractRecords(raw);
+  if (!output) {
     return {
       totalCount: 0,
       validCount: 0,
@@ -54,7 +63,7 @@ export function validateCollectorOutput(raw: unknown): ValidationResult {
   let invalidUrlCount = 0;
   let schemaMatches = true;
 
-  for (const item of raw) {
+  for (const item of output) {
     if (!isPlainObject(item)) {
       schemaMatches = false;
       missingRequiredCount += 1;
@@ -88,7 +97,7 @@ export function validateCollectorOutput(raw: unknown): ValidationResult {
   }
 
   return {
-    totalCount: raw.length,
+    totalCount: output.length,
     validCount: records.length,
     missingRequiredCount,
     invalidUrlCount,
