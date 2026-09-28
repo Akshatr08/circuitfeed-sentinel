@@ -1,5 +1,13 @@
 {
   "version": "7",
   "dialect": "postgresql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1790612874555,
+      "tag": "0000_create_circuitfeed_pipeline_tables",
+      "breakpoints": true
+    }
+  ]
 }
