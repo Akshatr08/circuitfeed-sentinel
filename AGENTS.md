@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Treat Bright Data collector output as either a record array or a `{ hackathons: [...] }` envelope, because the configured collector returns the enveloped shape.
