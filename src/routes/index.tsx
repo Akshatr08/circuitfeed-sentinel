@@ -8,10 +8,24 @@ import { PipelineHealth } from "@/components/pipeline-health";
 import { RecoveryPanel } from "@/components/recovery-panel";
 import { getPipelineState, triggerScrapeRun } from "@/lib/pipeline.functions";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "CircuitFeed Sentinel | Hackathon Pipeline Monitor" },
+      {
+        name: "description",
+        content:
+          "Monitor the Unstop hackathon collector, detect data drift, verify recovery, and ask questions grounded in trusted records.",
+      },
+      { property: "og:title", content: "CircuitFeed Sentinel" },
+      {
+        property: "og:description",
+        content: "Web intelligence that fixes itself through collector monitoring and verified recovery.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
