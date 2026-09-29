@@ -128,13 +128,79 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-weight: 300;
-    letter-spacing: 0.01em;
+    font-weight: 400;
+    letter-spacing: 0.005em;
   }
 
   ::selection {
     background-color: color-mix(in oklab, var(--primary) 30%, transparent);
   }
+}
+
+/* ------------------------------------------------------------------
+ * Instrument-panel chrome: hairline panels, corner marks, label bars.
+ * ------------------------------------------------------------------ */
+
+@utility panel {
+  position: relative;
+  background-color: color-mix(in oklab, var(--card) 70%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 0;
+}
+
+@utility panel-marks {
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border: 1px solid color-mix(in oklab, var(--thread) 55%, transparent);
+    pointer-events: none;
+  }
+  &::before {
+    top: -1px;
+    left: -1px;
+    border-right: 0;
+    border-bottom: 0;
+  }
+  &::after {
+    right: -1px;
+    bottom: -1px;
+    border-left: 0;
+    border-top: 0;
+  }
+}
+
+@utility label-rule {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--line), transparent);
+  }
+}
+
+@utility hatch {
+  background-image: repeating-linear-gradient(
+    45deg,
+    color-mix(in oklab, var(--foreground) 9%, transparent) 0 1px,
+    transparent 1px 6px
+  );
+}
+
+@utility readout {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
 }
 
 /* ------------------------------------------------------------------
