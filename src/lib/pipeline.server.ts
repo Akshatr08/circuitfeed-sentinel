@@ -189,7 +189,8 @@ export async function executeCollectorRun(): Promise<TriggerRunResult> {
     const rawString = JSON.stringify(raw);
     const rawSnippet = rawString.length > 500 ? rawString.slice(0, 500) + "..." : rawString;
     const baseError = health.reasons.length > 0 ? health.reasons.join(" · ") : "";
-    const debugError = baseError ? `${baseError}\n\n[RAW]: ${rawSnippet}` : null;
+    const debugError =
+      health.status === "healthy" ? null : baseError ? `${baseError}\n\n[RAW]: ${rawSnippet}` : null;
 
     const completed: Partial<ScraperRun> = {
       status: health.status,

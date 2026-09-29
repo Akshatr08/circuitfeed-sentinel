@@ -65,8 +65,10 @@ export function PipelineHealth({
         </a>
       </p>
 
-      {pipeline.latestRun?.error_message ? (
-        <p className="mt-2 text-sm text-destructive">{pipeline.latestRun.error_message}</p>
+      {pipeline.latestRun?.error_message && pipeline.latestRun.status !== "healthy" ? (
+        <p className="mt-2 break-words text-sm text-destructive">
+          {pipeline.latestRun.error_message.split("\n\n[RAW]")[0]}
+        </p>
       ) : null}
       {scrapeMessage ? <p className="mt-2 text-sm text-muted-foreground">{scrapeMessage}</p> : null}
     </section>
